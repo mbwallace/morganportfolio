@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Morgan Wallace — Portfolio</title>
+  <meta name="description" content="Morgan Wallace — visual artist. A minimal, light, and earthy portfolio." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">Morgan Wallace</h1>
+      <nav>
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="art.html">Art</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-photo">
+        <!-- Placeholder profile SVG -->
+        <img src="images/profile.svg" alt="Photo of Morgan Wallace" />
+      </div>
+      <div class="hero-copy">
+        <h2>Hello — I'm Morgan</h2>
+        <p class="intro">
+          I'm a visual artist working with illustration, digital painting, and mixed media. I explore texture, color, and quiet narratives. Welcome to my portfolio.
+        </p>
+        <p>
+          <a class="btn" href="art.html">View Art</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="about container">
+      <h3>About me</h3>
+      <p>
+        A short paragraph about your background, practice, and the themes you explore. Replace this with your own copy or send me text and I will update it.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Morgan Wallace — <a href="mailto:you@example.com">you@example.com</a></p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
