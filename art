@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Morgan Wallace — Art</title>
+  <meta name="description" content="Gallery of work by Morgan Wallace" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">Morgan Wallace</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="art.html" aria-current="page">Art</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="gallery container">
+      <h2>Art</h2>
+      <p class="gallery-sub">A curated selection of recent work</p>
+
+      <div class="grid" id="gallery">
+        <figure tabindex="0">
+          <img src="images/art1.svg" alt="Artwork 1" data-caption="Artwork 1 — placeholder">
+          <figcaption>Artwork 1</figcaption>
+        </figure>
+        <figure tabindex="0">
+          <img src="images/art2.svg" alt="Artwork 2" data-caption="Artwork 2 — placeholder">
+          <figcaption>Artwork 2</figcaption>
+        </figure>
+        <figure tabindex="0">
+          <img src="images/art3.svg" alt="Artwork 3" data-caption="Artwork 3 — placeholder">
+          <figcaption>Artwork 3</figcaption>
+        </figure>
+        <figure tabindex="0">
+          <img src="images/art4.svg" alt="Artwork 4" data-caption="Artwork 4 — placeholder">
+          <figcaption>Artwork 4</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year2"></span> Morgan Wallace</p>
+    </div>
+  </footer>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Artwork view">
+    <button class="lb-close" aria-label="Close">✕</button>
+    <button class="lb-prev" aria-label="Previous">‹</button>
+    <div class="lb-content">
+      <img src="" alt="">
+      <p class="lb-caption"></p>
+    </div>
+    <button class="lb-next" aria-label="Next">›</button>
+  </div>
+
+  <script>
+    document.getElementById('year2').textContent = new Date().getFullYear();
+
+    const gallery = Array.from(document.querySelectorAll('#gallery figure img'));
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    const lbCaption = lb.querySelector('.lb-caption');
+    let current = 0;
+
+    function openLightbox(index) {
+      const img = gallery[index];
+      lbImg.src = img.src;
+      lbImg.alt = img.alt || '';
+      lbCaption.textContent = img.dataset.caption || img.alt || '';
+      lb.setAttribute('aria-hidden','false');
+      lb.classList.add('open');
+      current = index;
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lb.setAttribute('aria-hidden','true');
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function showNext(delta) {
+      current = (current + delta + gallery.length) % gallery.length;
+      openLightbox(current);
+    }
+
+    gallery.forEach((img, i) => {
+      img.addEventListener('click', () => openLightbox(i));
+      img.parentElement.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') openLightbox(i);
+      });
+    });
+
+    lb.querySelector('.lb-close').addEventListener('click', closeLightbox);
+    lb.querySelector('.lb-prev').addEventListener('click', () => showNext(-1));
+    lb.querySelector('.lb-next').addEventListener('click', () => showNext(1));
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) closeLightbox();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') showNext(1);
+      if (e.key === 'ArrowLeft') showNext(-1);
+    });
+  </script>
+</body>
+</html>
